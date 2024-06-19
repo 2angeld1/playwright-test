@@ -1,0 +1,82 @@
+----------- npx playwright test --------------- 
+tira todas las pruebas
+
+----------- npx playwright test  ejemplo.spec.ts ------------
+tira la prueba especifica
+
+----------- npx playwright test  ejemplo.spec.ts -g "login paises" ------------
+tira la prueba espeficia mas especifica
+
+---- npx playwright test  ejemplo.spec.ts -g "login paises" --repeat-each 5 --
+tira la prueba 5 veces en paralela
+
+
+--------- npx playwright test  ejemplo.spec.ts -g "login paises" --debug --
+para debugear
+
+interceptors
+    await page.on("request",(req) => {
+    console.log(req)
+   })
+   await page.route(
+    "https://staludra.blob.core.windows.net/aludra-files/2/Product/D466E081-FCB5-4DC8-8901-B8CE3D0C7635/resize/ff5e5e8b-63ea-47c3-b3d8-15ec6161c940_19042021170108.webp",
+    (route) => route.abort()
+   )
+      await page.route(
+    "**/*.{png,jpg,svg,webp}",
+    (route) => route.abort()
+   )
+   ``
+await page.route(
+    "https://www.novey.com.pa/apexremote",
+    (route) => {
+      route.fulfill({
+        status: 200,
+        headers: {
+          'Content-Type': "application/json"
+        },
+        body: `[{
+        "statusCode": 200,
+        "type": "rpc",
+        "tid": 3,
+        "ref": false,
+        "action": "ccrz.cc_ctrl_MenuBar",
+        "method": "getMenuJson",
+        "result": {
+            "data": [{
+                    "children": [{
+                            "children": [{
+                                    "displayName": "Aires Panama",
+                                    "linkURL": "a0K1U000004YoEyUAK",
+                                    "mType": "Category",
+                                    "openInNewWindow": false,
+                                    "sequence": 1,
+                                    "sfid": "a0f4Q00001txZwrQAE"
+                                }, {
+                                    "displayName": "Calentadores de agua",
+                                    "linkURL": "a0K1U000004YoRDUA0",
+                                    "mType": "Category",
+                                    "openInNewWindow": false,
+                                    "sequence": 2,
+                                    "sfid": "a0f1U000001Gu3lQAC"
+                                }
+                            ],
+                            "displayName": "Línea Blanca",
+                            "linkURL": "a0K1U000004YoR8UAK",
+                            "mType": "Category",
+                            "openInNewWindow": false,
+                            "sequence": 1,
+                            "sfid": "a0f1U000001Gu3gQAC"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
+`
+      })
+ 
+ 
+    }
+  )
